@@ -8,16 +8,22 @@ export const measurePerformance = (name: string, fn: () => void | Promise<void>)
   if (result instanceof Promise) {
     return result.finally(() => {
       const end = performance.now();
-      console.log(`${name} took ${end - start} milliseconds`);
+      if (import.meta.env.MODE === 'development') {
+        // eslint-disable-next-line no-console
+        console.log(`${name} took ${end - start} milliseconds`);
+      }
     });
   } else {
     const end = performance.now();
-    console.log(`${name} took ${end - start} milliseconds`);
+    if (import.meta.env.MODE === 'development') {
+      // eslint-disable-next-line no-console
+      console.log(`${name} took ${end - start} milliseconds`);
+    }
     return result;
   }
 };
 
-export const reportWebVitals = (onPerfEntry?: (metric: any) => void) => {
+export const reportWebVitals = (onPerfEntry?: (metric: any) => void) => { // eslint-disable-line @typescript-eslint/no-explicit-any
   if (onPerfEntry && onPerfEntry instanceof Function) {
     import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
       getCLS(onPerfEntry);

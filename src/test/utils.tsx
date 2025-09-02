@@ -1,5 +1,6 @@
-import React, { ReactElement } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
+import React, { ReactElement } from 'react';
+
 import { ErrorBoundary } from '@/src/components/common';
 
 // Custom render function with providers

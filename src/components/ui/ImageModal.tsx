@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+
 import { UI_CONFIG } from '@/src/config';
 
 interface ImageModalProps {
@@ -28,9 +29,11 @@ export const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose }) => 
     <div
       className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 transition-opacity duration-300 animate-fade-in'
       onClick={onClose}
+      onKeyDown={(e) => e.key === 'Enter' && onClose()}
       role='dialog'
       aria-modal='true'
       aria-labelledby='image-modal-title'
+      tabIndex={0}
     >
       <style>{`
         @keyframes fade-in {
@@ -45,6 +48,9 @@ export const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose }) => 
       <div
         className='relative bg-white p-2 rounded-lg shadow-2xl'
         onClick={e => e.stopPropagation()}
+        onKeyDown={(e) => e.key === 'Enter' && e.stopPropagation()}
+        role='img'
+        tabIndex={0}
       >
         <h2 id='image-modal-title' className='sr-only'>
           Enlarged Image View

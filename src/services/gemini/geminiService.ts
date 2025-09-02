@@ -1,6 +1,6 @@
 import { GoogleGenAI, Modality } from '@google/genai';
-import { env } from '@/src/config';
-import { GEMINI_CONFIG } from '@/src/config';
+
+import { env , GEMINI_CONFIG } from '@/src/config';
 import type { ImagePayload } from '@/types';
 
 // Initialize Gemini AI client
@@ -69,7 +69,10 @@ export async function generateInSituImage(
     }
     return null;
   } catch (error) {
-    console.error('Error calling Gemini API:', error);
+    if (import.meta.env.MODE === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Error calling Gemini API:', error);
+    }
     throw new Error('Failed to generate image with Gemini API.');
   }
 }

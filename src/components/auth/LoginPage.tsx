@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/src/config';
+
+import { ERROR_MESSAGES } from '@/src/config';
 
 interface LoginPageProps {
   onLoginSuccess: () => void;
@@ -26,12 +27,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
       // Mock Authentication - In production, this would be a real API call
       if (email.trim() && password.trim()) {
-        console.log('Mock login successful for:', email);
+        // Mock login successful
         onLoginSuccess();
       } else {
         setError('Please enter both email and password.');
       }
-    } catch (err) {
+    } catch {
       setError(ERROR_MESSAGES.auth);
     } finally {
       setIsLoading(false);
@@ -118,7 +119,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         
         <div className='text-center'>
           <p className='text-sm text-slate-600'>
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <button
               onClick={onNavigateToRegister}
               className='font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline'

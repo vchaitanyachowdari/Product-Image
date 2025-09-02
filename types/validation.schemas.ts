@@ -2,6 +2,8 @@
  * Zod validation schemas for runtime type checking
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { z } from 'zod';
 
 // User validation schemas

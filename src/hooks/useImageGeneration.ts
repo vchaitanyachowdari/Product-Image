@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
-import { generateInSituImage, fileToBase64 } from '@/src/services/gemini';
+
 import { UI_CONFIG, ERROR_MESSAGES } from '@/src/config';
+import { generateInSituImage, fileToBase64 } from '@/src/services/gemini';
 
 export const useImageGeneration = () => {
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
@@ -51,9 +52,9 @@ export const useImageGeneration = () => {
       setIsLoading(true);
       setError(null);
       setGeneratedImage(null);
-      setLoadingMessage(
-        UI_CONFIG.loadingMessages[Math.floor(Math.random() * UI_CONFIG.loadingMessages.length)]!
-      );
+      const randomIndex = Math.floor(Math.random() * UI_CONFIG.loadingMessages.length);
+      const message = UI_CONFIG.loadingMessages[randomIndex] || 'Processing your request...';
+      setLoadingMessage(message);
 
       try {
         const imagePayloads = await Promise.all(
@@ -68,7 +69,10 @@ export const useImageGeneration = () => {
           setError(ERROR_MESSAGES.generation);
         }
       } catch (err) {
-        console.error('Image generation error:', err);
+        if (import.meta.env.MODE === 'development') {
+          // eslint-disable-next-line no-console
+          console.error('Image generation error:', err);
+        }
         setError(ERROR_MESSAGES.generation);
       } finally {
         setIsLoading(false);

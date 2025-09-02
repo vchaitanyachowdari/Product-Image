@@ -1,18 +1,15 @@
 import React, { useState, useCallback } from 'react';
 
-import { Header } from '@/src/components/layout';
-import { ImageModal } from '@/src/components/ui';
+import { LoginPage, RegisterPage } from '@/src/components/auth';
+import { ErrorBoundary } from '@/src/components/common';
 import { 
   ImageUploader, 
   PromptControls, 
   ResultDisplay 
 } from '@/src/components/features';
-import { LoginPage, RegisterPage } from '@/src/components/auth';
-import { generateInSituImage, fileToBase64 } from '@/src/services/gemini';
-import { useAuth } from '@/src/hooks/useAuth';
-import { useImageGeneration } from '@/src/hooks/useImageGeneration';
-import { ErrorBoundary } from '@/src/components/common';
-import type { Page } from '@/types';
+import { Header } from '@/src/components/layout';
+import { ImageModal } from '@/src/components/ui';
+import { useAuth, useImageGeneration } from '@/src/hooks';
 
 const App: React.FC = () => {
   const { isLoggedIn, currentPage, handleLoginSuccess, handleLogout, navigateTo } = useAuth();

@@ -3,24 +3,24 @@
  * This file should not be included in the build
  */
 
-import type {
-  User,
-  UploadedImage,
-  GeneratedImage,
-  ApiResponse,
-  AppError,
-  AuthState,
-  ImagesState,
-  UIState,
-  AppStore,
-} from './index';
-
 import {
   loginCredentialsSchema,
   registerDataSchema,
   fileUploadSchema,
   generationRequestSchema,
+  type User,
+  type UploadedImage,
+  type ApiResponse,
+  type AppError,
+  type AuthState,
+  type ImagesState,
+  type UIState,
+  type DeepPartial,
+  type Brand,
+  type AsyncState,
+  type PaginatedResult,
 } from './index';
+
 
 // Test basic type usage
 const testUser: User = {
@@ -69,19 +69,7 @@ const testImage: UploadedImage = {
   updatedAt: new Date(),
 };
 
-const testApiResponse: ApiResponse<User> = {
-  data: testUser,
-  success: true,
-  message: 'User retrieved successfully',
-};
 
-const testError: AppError = {
-  code: 'VALIDATION_FAILED',
-  message: 'Validation failed',
-  timestamp: new Date(),
-  severity: 'medium',
-  category: 'validation',
-};
 
 // Test validation schemas
 const validLoginData = {
@@ -92,6 +80,7 @@ const validLoginData = {
 
 const loginValidation = loginCredentialsSchema.safeParse(validLoginData);
 if (loginValidation.success) {
+  // eslint-disable-next-line no-console
   console.log('Login data is valid:', loginValidation.data);
 }
 
@@ -105,6 +94,7 @@ const validRegisterData = {
 
 const registerValidation = registerDataSchema.safeParse(validRegisterData);
 if (registerValidation.success) {
+  // eslint-disable-next-line no-console
   console.log('Register data is valid:', registerValidation.data);
 }
 
@@ -112,6 +102,7 @@ if (registerValidation.success) {
 const testFile = new File(['test content'], 'test.jpg', { type: 'image/jpeg' });
 const fileValidation = fileUploadSchema.safeParse({ file: testFile });
 if (fileValidation.success) {
+  // eslint-disable-next-line no-console
   console.log('File is valid:', fileValidation.data);
 }
 
@@ -125,6 +116,7 @@ const generationRequest = {
 
 const generationValidation = generationRequestSchema.safeParse(generationRequest);
 if (generationValidation.success) {
+  // eslint-disable-next-line no-console
   console.log('Generation request is valid:', generationValidation.data);
 }
 
@@ -171,8 +163,23 @@ const testUIState: UIState = {
   },
 };
 
+// Test error types
+const testApiResponse: ApiResponse<User> = {
+  success: true,
+  data: testUser,
+  message: 'User retrieved successfully',
+  timestamp: new Date(),
+};
+
+const testAppError: AppError = {
+  code: 'VALIDATION_ERROR',
+  message: 'Invalid input data',
+  details: { field: 'email', reason: 'Invalid format' },
+  timestamp: new Date(),
+  requestId: 'req-123',
+};
+
 // Test utility types
-import type { DeepPartial, Brand, AsyncState, PaginatedResult } from './index';
 
 type PartialUser = DeepPartial<User>;
 type UserId = Brand<string, 'UserId'>;
@@ -205,7 +212,19 @@ const usersPaginated: UsersPaginated = {
   },
 };
 
+// eslint-disable-next-line no-console
 console.log('All types compiled successfully!');
-console.log({ partialUser, userId, userAsyncState, usersPaginated });
+// eslint-disable-next-line no-console
+console.log({ 
+  partialUser, 
+  userId, 
+  userAsyncState, 
+  usersPaginated,
+  testAuthState,
+  testImagesState,
+  testUIState,
+  testApiResponse,
+  testAppError
+});
 
 export {}; // Make this a module

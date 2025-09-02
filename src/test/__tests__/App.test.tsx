@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '../utils';
+
 import App from '@/src/app/App';
+
+import { render, screen } from '../utils';
 
 describe('App', () => {
   it('renders login page by default', () => {

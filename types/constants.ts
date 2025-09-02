@@ -76,7 +76,7 @@ export const VALIDATION = {
   PASSWORD_REGEX: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
   NAME_REGEX: /^[a-zA-Z\s'-]+$/,
   USERNAME_REGEX: /^[a-zA-Z0-9_-]+$/,
-  PHONE_REGEX: /^\+?[\d\s\-\(\)]+$/,
+  PHONE_REGEX: /^\+?[\d\s\-()]+$/,
   URL_REGEX: /^https?:\/\/.+/,
 } as const;
 

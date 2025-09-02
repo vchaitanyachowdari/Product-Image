@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/src/config';
+
 
 interface RegisterPageProps {
   onRegisterSuccess: () => void;
@@ -63,9 +63,9 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
       await new Promise(resolve => setTimeout(resolve, 1500));
 
       // Mock Registration - In production, this would be a real API call
-      console.log('Mock registration successful for:', formData.email);
+      // Mock registration successful
       onRegisterSuccess();
-    } catch (err) {
+    } catch {
       setError('Registration failed. Please try again.');
     } finally {
       setIsLoading(false);

@@ -27,7 +27,10 @@ const parseEnv = () => {
       SUPPORTED_IMAGE_FORMATS: import.meta.env.VITE_SUPPORTED_IMAGE_FORMATS?.split(','),
     });
   } catch (error) {
-    console.error('Environment validation failed:', error);
+    if (import.meta.env.MODE === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Environment validation failed:', error);
+    }
     throw new Error('Invalid environment configuration');
   }
 };

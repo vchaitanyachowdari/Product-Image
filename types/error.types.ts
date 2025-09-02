@@ -2,6 +2,8 @@
  * Error handling type definitions
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export type ErrorSeverity = 'low' | 'medium' | 'high' | 'critical';
 
 export type ErrorCategory = 

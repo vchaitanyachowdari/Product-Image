@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+
 import type { Page } from '@/types';
 
 export const useAuth = () => {

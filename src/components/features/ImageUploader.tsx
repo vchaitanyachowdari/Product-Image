@@ -1,5 +1,6 @@
 import React, { useRef, useCallback } from 'react';
-import { FILE_CONFIG, ERROR_MESSAGES } from '@/src/config';
+
+import { FILE_CONFIG } from '@/src/config';
 
 interface ImageUploaderProps {
   onImageUpload: (files: File[]) => void;
@@ -25,13 +26,19 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
 
       // Check file size
       if (file.size > FILE_CONFIG.maxSize) {
-        console.warn(`File ${file.name} exceeds size limit`);
+        if (import.meta.env.MODE === 'development') {
+          // eslint-disable-next-line no-console
+          console.warn(`File ${file.name} exceeds size limit`);
+        }
         continue;
       }
 
       // Check file type
       if (!FILE_CONFIG.supportedFormats.includes(file.type)) {
-        console.warn(`File ${file.name} has unsupported format`);
+        if (import.meta.env.MODE === 'development') {
+          // eslint-disable-next-line no-console
+          console.warn(`File ${file.name} has unsupported format`);
+        }
         continue;
       }
 

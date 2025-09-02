@@ -2,6 +2,8 @@
  * API-related type definitions
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export type ApiStatus = 'idle' | 'loading' | 'success' | 'error';

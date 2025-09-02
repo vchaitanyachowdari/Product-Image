@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { SparklesIcon } from '@/src/components/ui/icons/SparklesIcon';
+
+import { SparklesIcon } from '@/src/components/ui';
 
 interface PromptControlsProps {
   onGenerate: (prompt: string) => void;

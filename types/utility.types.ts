@@ -2,6 +2,8 @@
  * Utility types for enhanced type safety and developer experience
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // Make all properties optional recursively
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];

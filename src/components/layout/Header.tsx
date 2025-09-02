@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { APP_CONFIG } from '@/src/config';
 import type { Page } from '@/types';
 

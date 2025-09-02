@@ -2,9 +2,11 @@
  * State management type definitions
  */
 
-import { User, UserPreferences } from './user.types';
-import { UploadedImage, GeneratedImage, ImageCollection } from './image.types';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { AppError } from './error.types';
+import { UploadedImage, GeneratedImage, ImageCollection } from './image.types';
+import { User, UserPreferences } from './user.types';
 
 // Auth state slice
 export interface AuthState {

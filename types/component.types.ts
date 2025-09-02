@@ -2,6 +2,8 @@
  * Component prop types and UI-related type definitions
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { ReactNode } from 'react';
 
 // Base component props

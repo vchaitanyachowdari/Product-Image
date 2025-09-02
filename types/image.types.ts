@@ -2,6 +2,8 @@
  * Image and file handling type definitions
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export type ImageStatus = 'uploading' | 'uploaded' | 'processing' | 'completed' | 'error' | 'cancelled';
 
 export type GenerationStatus = 'pending' | 'generating' | 'completed' | 'failed' | 'cancelled';
