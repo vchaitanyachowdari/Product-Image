@@ -17,7 +17,7 @@ if (!rootElement) {
   throw new Error('Could not find root element to mount to');
 }
 
-const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const googleClientId = import.meta.env['VITE_GOOGLE_CLIENT_ID'];
 
 if (!googleClientId) {
   throw new Error("Missing Google Client ID in environment variables");
