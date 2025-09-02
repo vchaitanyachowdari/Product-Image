@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './src/app/App';
+import { ErrorBoundary } from './src/components/common';
+import './src/styles/index.css';
 
-import App from './App';
+// Performance monitoring in production
+if (import.meta.env.PROD) {
+  // Add performance monitoring here
+  // Example: import('./src/utils/analytics').then(({ initAnalytics }) => initAnalytics());
+}
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -11,6 +18,8 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </React.StrictMode>
 );
