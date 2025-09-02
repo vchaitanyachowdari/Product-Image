@@ -1,0 +1,5 @@
+{
+  "name": "Productorr",
+  "description": "An application for product owners to upload product images and place them in various virtual settings and environments using AI. Users can choose from presets, let the AI decide intelligently, or specify a custom environment.",
+  "requestFramePermissions": []
+}
