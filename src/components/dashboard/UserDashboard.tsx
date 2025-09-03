@@ -49,6 +49,25 @@ export const UserDashboard: React.FC = () => {
       setRecentImages(images);
     } catch (error) {
       console.error('Failed to load user data:', error);
+      // Set a default profile on error to prevent infinite loading
+      setProfile({
+        $id: 'error-profile',
+        $createdAt: new Date().toISOString(),
+        $updatedAt: new Date().toISOString(),
+        userId: user.$id,
+        email: user.email,
+        name: user.name || 'Unknown User',
+        preferences: {
+          theme: 'system' as const,
+          notifications: true,
+          publicProfile: false,
+        },
+        stats: {
+          imagesGenerated: 0,
+          favoriteCount: 0,
+          shareCount: 0,
+        },
+      });
     } finally {
       setLoading(false);
     }
@@ -61,7 +80,11 @@ export const UserDashboard: React.FC = () => {
   if (!user || loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div 
+          className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"
+          role="status"
+          aria-label="Loading"
+        ></div>
       </div>
     );
   }
