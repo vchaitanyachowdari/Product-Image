@@ -1,7 +1,7 @@
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import App from './src/app/App';
 import { ErrorBoundary } from './src/components/common';
 import './src/styles/index.css';

@@ -65,3 +65,108 @@ export const optimizeImage = (file: File, maxWidth: number = 1024, quality: numb
     img.src = URL.createObjectURL(file);
   });
 };
+
+// Enhanced performance utilities
+export const performanceUtils = {
+  // Debounce function for search inputs
+  debounce: <T extends (...args: any[]) => any>(
+    func: T,
+    wait: number
+  ): ((...args: Parameters<T>) => void) => {
+    let timeout: NodeJS.Timeout;
+    return (...args: Parameters<T>) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  },
+
+  // Throttle function for scroll events
+  throttle: <T extends (...args: any[]) => any>(
+    func: T,
+    limit: number
+  ): ((...args: Parameters<T>) => void) => {
+    let inThrottle: boolean;
+    return (...args: Parameters<T>) => {
+      if (!inThrottle) {
+        func(...args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  },
+
+  // Lazy load images with intersection observer
+  lazyLoadImage: (src: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(src);
+      img.onerror = reject;
+      img.src = src;
+    });
+  },
+
+  // Create intersection observer for lazy loading
+  createLazyLoadObserver: (callback: (entries: IntersectionObserverEntry[]) => void) => {
+    return new IntersectionObserver(callback, {
+      root: null,
+      rootMargin: '50px',
+      threshold: 0.1,
+    });
+  },
+
+  // Memory usage monitoring
+  getMemoryUsage: () => {
+    if ('memory' in performance) {
+      const memory = (performance as any).memory;
+      return {
+        used: Math.round(memory.usedJSHeapSize / 1048576),
+        total: Math.round(memory.totalJSHeapSize / 1048576),
+        limit: Math.round(memory.jsHeapSizeLimit / 1048576),
+      };
+    }
+    return null;
+  },
+
+  // Simple in-memory cache with TTL
+  cache: {
+    store: new Map<string, { data: any; expires: number }>(),
+
+    set: (key: string, data: any, ttlMs = 300000) => { // 5 minutes default
+      const expires = Date.now() + ttlMs;
+      performanceUtils.cache.store.set(key, { data, expires });
+    },
+
+    get: (key: string) => {
+      const item = performanceUtils.cache.store.get(key);
+      if (!item) return null;
+      
+      if (Date.now() > item.expires) {
+        performanceUtils.cache.store.delete(key);
+        return null;
+      }
+      
+      return item.data;
+    },
+
+    clear: () => {
+      performanceUtils.cache.store.clear();
+    },
+  },
+
+  // Virtual scrolling helper
+  calculateVisibleItems: (
+    scrollTop: number,
+    containerHeight: number,
+    itemHeight: number,
+    totalItems: number,
+    overscan = 5
+  ) => {
+    const startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
+    const endIndex = Math.min(
+      totalItems - 1,
+      Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan
+    );
+    
+    return { startIndex, endIndex, visibleItems: endIndex - startIndex + 1 };
+  },
+};
